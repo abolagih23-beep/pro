@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animashaun's Modern Project Hub</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+  /* ===== Dynamic gradient background ===== */
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(270deg, #ff416c, #ff4b2b, #1c92d2, #6a11cb);
+    background-size: 800% 800%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    animation: gradientBG 20s ease infinite;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+
+  h1 {
+    margin-top: 40px;
+    font-size: 3rem;
+    text-shadow: 0 0 20px #fff;
+    background: linear-gradient(45deg, #fff, #0ff, #ff0, #f0f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400% 400%;
+    animation: gradientText 8s ease infinite;
+  }
+
+  @keyframes gradientText {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 50px;
+    width: 90%;
+    perspective: 1200px;
+    position: relative;
+  }
+
+  /* ===== Particle container ===== */
+  #particles {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .project-card {
+    width: 100%;
+    height: 320px;
+    cursor: pointer;
+    perspective: 1200px;
+    z-index: 1;
+  }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4,0.2,0.2,1);
+    transform-style: preserve-3d;
+  }
+
+  .project-card:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+  }
+
+  .card-front {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: #fff;
+  }
+
+  .card-front img {
+    width: 80px; height: 80px;
+    margin-top: 20px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    object-fit: cover;
+    animation: float 3s ease-in-out infinite, rotateIcon 6s linear infinite;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0px);}
+    50% { transform: translateY(-12px);}
+  }
+
+  @keyframes rotateIcon {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+  }
+
+  .card-front a {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: text-shadow 0.3s, transform 0.3s;
+  }
+
+  .card-front a:hover {
+    text-shadow: 0 0 15px #fff, 0 0 25px #0ff;
+    transform: scale(1.1);
+  }
+
+  .card-front p {
+    color: #eee;
+    font-size: 0.9rem;
+    margin: 10px 20px;
+    text-align: center;
+  }
+
+  .card-back {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    transform: rotateY(180deg);
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: glowBack 3s ease-in-out infinite alternate;
+  }
+
+  .card-back h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 12px #fff;
+  }
+
+  .card-back p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  @keyframes glowBack {
+    0% { box-shadow: 0 0 10px rgba(255,255,255,0.2);}
+    50% { box-shadow: 0 0 25px rgba(255,255,255,0.4);}
+    100% { box-shadow: 0 0 10px rgba(255,255,255,0.2);}
+  }
+
+  footer {
+    margin-top: auto;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+
+  @media(max-width: 600px){
+    .projects {
+      grid-template-columns: 1fr;
+      margin: 30px 10px;
+    }
+    .project-card { height: 340px; }
+  }
+
+</style>
+</head>
+<body>
+
+<h1>💻 Animashaun's Modern Project Hub</h1>
+
+<div id="particles"></div>
+
+<div class="projects">
+
+  <!-- Lang -->
+  <div class="project-card" onclick="window.open('https://abolagih23-beep.github.io/lang/', '_blank')">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="https://via.placeholder.com/80?text=L" alt="Lang">
+        <a><i class="fas fa-language"></i> Lang</a>
+        <p>Translate text in multiple languages instantly.Voice to text is also avaliable</p>
+      </div>
+      <div class="card-back">
+        <h3>How to Use</h3>
+        <p>Enter text → Select language → Click Translate → See results.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Apo-tech -->
+  <div class="project-card" onclick="window.open('https://abolagih23-beep.github.io/Apo-tech/index.html', '_blank')">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="https://via.placeholder.com/80?text=A" alt="Apo-tech">
+        <a><i class="fas fa-microchip"></i> Apo-tech</a>
+        <p>Explore tech demos and features interactively.</p>
+      </div>
+      <div class="card-back">
+        <h3>How to Use</h3>
+        <p>Navigate the menus → Click features → Explore content.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blue Dream Portal -->
+  <div class="project-card" onclick="window.open('https://abolagih23-beep.github.io/blue-dream-portal/welcome.html', '_blank')">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="https://via.placeholder.com/80?text=B" alt="Blue Dream Portal">
+        <a><i class="fas fa-globe"></i> Blue Dream Portal</a>
+        <p>Access portal sections easily and follow instructions.</p>
+      </div>
+      <div class="card-back">
+        <h3>How to Use</h3>
+        <p>Open sections from menu → Explore content → Enjoy interactive features.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Latest Digital Clock -->
+  <div class="project-card" onclick="window.open('https://abolagih23-beep.github.io/latest-digital-clock', '_blank')">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="https://via.placeholder.com/80?text=C" alt="Digital Clock">
+        <a><i class="fas fa-clock"></i> Digital Clock</a>
+        <p>Real-time clock with city-based updates.Tip:scroll down to ge</p>
+      </div>
+      <div class="card-back">
+        <h3>How to Use</h3>
+        <p>Scroll → Enter city name → Clock updates automatically.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Church Website -->
+  <div class="project-card" onclick="window.open('https://abolagih23-beep.github.io/church-website/', '_blank')">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="https://via.placeholder.com/80?text=CW" alt="Church Website">
+        <a><i class="fas fa-church"></i> Church Website</a>
+        <p>Browse services, events, and contact info easily.</p>
+      </div>
+      <div class="card-back">
+        <h3>How to Use</h3>
+        <p>Click menu → View pages → Explore content.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>© 2026 Abolaji | All projects in one modern hub</footer>
+
+<!-- ===== JS for Particle effect ===== -->
+<script>
+const particlesContainer = document.getElementById('particles');
+
+function createParticle() {
+  const particle = document.createElement('div');
+  particle.style.position = 'absolute';
+  particle.style.width = particle.style.height = Math.random() * 6 + 2 + 'px';
+  particle.style.background = `rgba(255,255,255,${Math.random()})`;
+  particle.style.borderRadius = '50%';
+  particle.style.left = Math.random() * window.innerWidth + 'px';
+  particle.style.top = Math.random() * window.innerHeight + 'px';
+  particle.style.pointerEvents = 'none';
+  particle.style.animation = `floatParticle ${Math.random()*5 + 3}s linear infinite`;
+  particlesContainer.appendChild(particle);
+
+  setTimeout(() => particle.remove(), 10000);
+}
+
+setInterval(createParticle, 200);
+
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes floatParticle {
+  0% { transform: translateY(0) translateX(0); opacity: 1;}
+  50% { transform: translateY(-50px) translateX(20px); opacity: 0.6;}
+  100% { transform: translateY(0) translateX(0); opacity: 1;}
+}`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
